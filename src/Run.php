@@ -16,6 +16,12 @@ class Run
         $this->baseHtml = file_get_contents('index.html');
     }
 
+    public function evaluate(array $request)
+    {
+        $scheduleService = new ScheduleService($this->em);
+        $scheduleService->save($request);
+    }
+
     public function prepareScreen(string $screen)
     {
         switch ($screen) {
@@ -57,12 +63,33 @@ class Run
                 $(function() {
                     $.each(tableData, function(tableIndex, list) {
                         $.each(list, function(listIndex, item) {
-                            var $tr = $(\'<tr>\').append(
-                                $(\'<th scope="row">\').text(item.workplace),
-                                $(\'<td>\').text(item.equipment),
-                                $(\'<td>\').text(item.during),
-                                $(\'<td>\').text(item.person)
-                            ).appendTo(\'#schedule-table-\' + tableIndex.replace(/-/g, \'\'));
+                            var personData = item.data + "-" + tableIndex;
+                            var $tr = $("<tr>").append(
+                                $("<th scope=\'row\'>").text(item.workplace),
+                                $("<td>").text(item.equipment),
+                                $("<td>").text(tableIndex),
+                                $("<td class=\'person\' contenteditable=\'true\'>").attr("data", personData).text(item.person)
+                            ).appendTo("#schedule-table-" + tableIndex.replace(/-/g, ""));
+                        });
+                    });
+                    $(".person").focusout(function() {
+                        var value = $(this).text();
+                        var parameters = $(this).attr("data");
+
+                        $.ajax({
+                            url: "index.php",
+                            type: "post",
+                            data: {
+                                parameters: parameters,
+                                value: value,
+                                type: "schedule"
+                            },
+                            error: function() {
+                                alert("Name is invalid!");
+                            },
+                            success: function(){
+                                alert("New schedule set!");
+                            }
                         });
                     });
                 });
