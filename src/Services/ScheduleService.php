@@ -32,6 +32,8 @@ class ScheduleService extends BaseService
             die;
         }
 
+        $this->delete($request);
+
         $workplace = $this->em->getRepository(Workplace::class)->find($workplaceId);
 
         $schedule = new Schedule();
