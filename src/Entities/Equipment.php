@@ -41,4 +41,10 @@ class Equipment
      * @ORM\Column(type="string", length=511)
      */
     protected $description;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Workplace", inversedBy="equipment")
+     * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id")
+     */
+    protected $workplace;
 }

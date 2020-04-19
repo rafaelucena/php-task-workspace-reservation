@@ -26,4 +26,9 @@ class Workplace
      * @ORM\Column(type="string", length=511)
      */
     protected $description;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Equipment", mappedBy="workplace")
+     */
+    protected $equipment;
 }
