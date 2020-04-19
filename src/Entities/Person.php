@@ -102,8 +102,8 @@ class Person
         return $this->description;
     }
 
-    public function getSchedule()
+    public function getSchedules()
     {
-        return $this->schedule;
+        return $this->schedules;
     }
 }

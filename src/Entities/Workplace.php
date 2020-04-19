@@ -67,8 +67,8 @@ class Workplace
         return $this->equipment;
     }
 
-    public function getSchedule()
+    public function getSchedules()
     {
-        return $this->schedule;
+        return $this->schedules;
     }
 }
