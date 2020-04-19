@@ -46,6 +46,25 @@ class ScheduleService extends BaseService
         return ['status' => 'success'];
     }
 
+    public function delete(array $request)
+    {
+        preg_match('/\d{4}-\d{2}-\d{2}$/', $request['parameters'], $match);
+        $date = new \DateTime($match[0]);
+
+        preg_match('/^\d+/', $request['parameters'], $match);
+        $workplaceId = $match[0];
+
+        $workplace = $this->em->getRepository(Workplace::class)->find($workplaceId);
+
+        $schedule = $this->em->getRepository(Schedule::class)->findOneBy([
+            'workplace' => $workplace,
+            'during' => $date,
+        ]);
+
+        $this->em->remove($schedule);
+        $this->em->flush();
+    }
+
     public function getAll()
     {
         $dates = ['2020-04-21', '2020-04-20', '2020-04-19'];

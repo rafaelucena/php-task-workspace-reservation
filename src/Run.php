@@ -18,8 +18,19 @@ class Run
 
     public function evaluate(array $request)
     {
-        $scheduleService = new ScheduleService($this->em);
-        $scheduleService->save($request);
+        if (empty($request['type'])) {
+            return;
+        }
+        switch ($request['type']) {
+            case 'schedule':
+                $scheduleService = new ScheduleService($this->em);
+                if (empty($request['value'])) {
+                    $scheduleService->delete($request);
+                    return;
+                }
+                $scheduleService->save($request);
+                return;
+        }
     }
 
     public function prepareScreen(string $screen)
