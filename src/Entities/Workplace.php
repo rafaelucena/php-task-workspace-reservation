@@ -36,4 +36,39 @@ class Workplace
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="workplace")
      */
     protected $schedule;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setDesignation($designation)
+    {
+        $this->designation = $designation;
+    }
+
+    public function getDesignation()
+    {
+        return $this->designation;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getEquipment()
+    {
+        return $this->equipment;
+    }
+
+    public function getSchedule()
+    {
+        return $this->schedule;
+    }
 }
