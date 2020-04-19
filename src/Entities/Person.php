@@ -45,7 +45,7 @@ class Person
     /**
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="person")
      */
-    protected $schedule;
+    protected $schedules;
 
     public function getId()
     {

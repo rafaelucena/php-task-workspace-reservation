@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="schedule")
+ * @ORM\Table(name="schedules")
  */
 class Schedule
 {
@@ -28,13 +28,13 @@ class Schedule
     protected $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Workplace", inversedBy="schedule")
+     * @ORM\ManyToOne(targetEntity="Workplace", inversedBy="schedules")
      * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id")
      */
     protected $workplace;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="schedule")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="schedules")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     protected $person;

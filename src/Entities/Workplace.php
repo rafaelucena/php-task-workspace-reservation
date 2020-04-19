@@ -35,7 +35,7 @@ class Workplace
     /**
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="workplace")
      */
-    protected $schedule;
+    protected $schedules;
 
     public function getId()
     {
