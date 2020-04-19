@@ -1,5 +1,5 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require 'src/bootstrap.php';
 
-echo "Run forest";
+echo 'What now';
