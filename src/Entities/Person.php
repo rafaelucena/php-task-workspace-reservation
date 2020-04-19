@@ -41,4 +41,9 @@ class Person
      * @ORM\Column(type="string", length=511)
      */
     protected $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="person")
+     */
+    protected $schedule;
 }
