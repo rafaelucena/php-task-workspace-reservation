@@ -3,3 +3,6 @@
 
 # Tests
 /report
+
+# Database
+/data/db.sqlite
