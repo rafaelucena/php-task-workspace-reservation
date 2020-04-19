@@ -38,4 +38,49 @@ class Schedule
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     protected $person;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setDuring($during)
+    {
+        $this->during = $during;
+    }
+
+    public function getDuring()
+    {
+        return $this->during->format('Y-m-d');
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setWorkplace($workplace)
+    {
+        $this->workplace = $workplace;
+    }
+
+    public function getWorkplace()
+    {
+        return $this->workplace;
+    }
+
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+    public function getPerson()
+    {
+        return $this->person;
+    }
 }
