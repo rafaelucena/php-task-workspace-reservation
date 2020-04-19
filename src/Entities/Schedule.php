@@ -26,4 +26,10 @@ class Schedule
      * @ORM\Column(type="string", length=511)
      */
     protected $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Workplace", inversedBy="schedule")
+     * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id")
+     */
+    protected $workplace;
 }

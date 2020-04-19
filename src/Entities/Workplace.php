@@ -31,4 +31,9 @@ class Workplace
      * @ORM\OneToOne(targetEntity="Equipment", mappedBy="workplace")
      */
     protected $equipment;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="workplace")
+     */
+    protected $schedule;
 }
