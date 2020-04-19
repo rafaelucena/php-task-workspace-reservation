@@ -28,6 +28,9 @@
         ],
         "sniffer": [
             "./vendor/bin/phpcs -p"
+        ],
+        "doctrine": [
+            "php ./vendor/bin/doctrine"
         ]
     }
 }
