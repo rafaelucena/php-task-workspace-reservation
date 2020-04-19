@@ -46,4 +46,64 @@ class Person
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="person")
      */
     protected $schedule;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    }
+
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getSchedule()
+    {
+        return $this->schedule;
+    }
 }
