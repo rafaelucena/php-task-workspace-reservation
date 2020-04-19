@@ -47,4 +47,64 @@ class Equipment
      * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id")
      */
     protected $workplace;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setDesignation($designation)
+    {
+        $this->designation = $designation;
+    }
+
+    public function getDesignation()
+    {
+        return $this->designation;
+    }
+
+    public function setPurchaseYear($purchaseYear)
+    {
+        $this->purchaseYear = $purchaseYear;
+    }
+
+    public function getPurchaseYear()
+    {
+        return $this->purchaseYear;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getWorkspace()
+    {
+        return $this->workspace;
+    }
 }
