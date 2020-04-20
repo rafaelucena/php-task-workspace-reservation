@@ -8,6 +8,7 @@
             $(function() {
                 //::scripts-persons::
                 //::scripts-workplaces::
+                //::scripts-equipments::
                 //::scripts-schedule::
             });
         });
@@ -81,6 +82,9 @@
     </style>
     <div class="container">
       <div class="row">
+        <div class="col-md-6 bd-content">
+          ::data-schedule::
+        </div>
         <div class="col-md-6">
           <div class="row">
             <div class="col-md-12">
@@ -118,9 +122,25 @@
               </table>
             </div>
           </div>
-        </div>
-        <div class="col-md-6 bd-content">
-          ::data-schedule::
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-hover" id="equipments-table">
+                <thead class="thead-light">
+                  <tr>
+                    <th colspan="4" class="text-left">Equipments</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Workplace</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
