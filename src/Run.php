@@ -2,6 +2,7 @@
 
 namespace Recruitment;
 
+use Recruitment\Services\PersonService;
 use Recruitment\Services\ScheduleService;
 
 class Run
@@ -35,11 +36,7 @@ class Run
 
     public function prepareScreen(string $screen)
     {
-        switch ($screen) {
-            case 'list-schedule':
-                $this->prepareScheduleList();
-                break;
-        }
+        $this->prepareScheduleList();
     }
 
     private function prepareScheduleList()
@@ -65,36 +62,36 @@ class Run
         $this->baseHtml = str_replace('::data-schedule::', $tableData, $this->baseHtml);
 
         $scripts = 'var tableData = ' . json_encode($data) . ';
-              $.each(tableData, function(tableIndex, list) {
-                $.each(list, function(listIndex, item) {
-                  var personData = item.data + "-" + tableIndex;
-                  var $tr = $("<tr>").append(
-                    $("<th scope=\'row\'>").text(item.workplace),
-                    $("<td>").text(item.equipment),
-                    $("<td>").text(tableIndex),
-                    $("<td class=\'schedule-person\' contenteditable=\'true\'>").attr("data", personData).text(item.person)
-                  ).appendTo("#schedule-table-" + tableIndex.replace(/-/g, ""));
-                });
-              });
-              $(".schedule-person").focusout(function() {
-                var value = $(this).text();
-                var parameters = $(this).attr("data")
-                $.ajax({
-                  url: "index.php",
-                  type: "post",
-                  data: {
-                    parameters: parameters,
-                    value: value,
-                    type: "schedule"
-                  },
-                  error: function() {
-                    alert("Name is invalid!");
-                  },
-                  success: function(){
-                    alert("New schedule set!");
-                  }
-                });
-              });';
+          $.each(tableData, function(tableIndex, list) {
+            $.each(list, function(listIndex, item) {
+              var personData = item.id + "-" + tableIndex;
+              var $tr = $("<tr>").append(
+                $("<th scope=\'row\'>").text(item.workplace),
+                $("<td>").text(item.equipment),
+                $("<td>").text(tableIndex),
+                $("<td class=\'schedule-person\' contenteditable=\'true\'>").attr("data", personData).text(item.person)
+              ).appendTo("#schedule-table-" + tableIndex.replace(/-/g, ""));
+            });
+          });
+          $(".schedule-person").focusout(function() {
+            var value = $(this).text();
+            var parameters = $(this).attr("data")
+            $.ajax({
+              url: "index.php",
+              type: "post",
+              data: {
+                parameters: parameters,
+                value: value,
+                type: "schedule"
+              },
+              error: function() {
+                alert("Name is invalid!");
+              },
+              success: function(){
+                alert("New schedule set!");
+              }
+            });
+          });';
         $this->baseHtml = str_replace('//::scripts-schedule::', $scripts, $this->baseHtml);
     }
 
