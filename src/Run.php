@@ -150,6 +150,7 @@ class Run
               },
               success: function(){
                 alert("New person set!");
+                location.reload();
               }
             });
           });';
@@ -227,6 +228,7 @@ class Run
               },
               success: function(){
                 alert("New workplace set!");
+                location.reload();
               }
             });
           });';
@@ -288,6 +290,7 @@ class Run
               },
               success: function(){
                 alert("New equipment set!");
+                location.reload();
               }
             });
           });
@@ -312,6 +315,7 @@ class Run
               },
               success: function(){
                 alert("New equipment set!");
+                location.reload();
               }
             });
           });';
