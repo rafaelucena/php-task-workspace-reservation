@@ -170,7 +170,7 @@ class Run
 
         $tableData = '';
         foreach ($data as $key => $list) {
-            $table = '<table class="table table-hover" id="schedule-table-' . str_replace('-', '', $key) . '">
+            $table = '<table class="schedule-table table table-hover" id="schedule-table-' . str_replace('-', '', $key) . '">
               <thead class="thead-light">
               <tr><th colspan="4" class="text-left">' . $key . '</th></tr>
               <tr>
@@ -197,7 +197,13 @@ class Run
               ).appendTo("#schedule-table-" + tableIndex.replace(/-/g, ""));
             });
           });
-          $(".schedule-person").focusout(function() {
+
+          $(".schedule-table").on("keypress", ".schedule-person", function(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+
+            this.blur();
             var value = $(this).text();
             var parameters = $(this).attr("data");
             $.ajax({

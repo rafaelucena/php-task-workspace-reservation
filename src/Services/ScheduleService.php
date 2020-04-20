@@ -81,11 +81,9 @@ class ScheduleService extends BaseService
      */
     private function decodeParameters(string $parameters): array
     {
-        preg_match('/\d{4}-\d{2}-\d{2}$/', $parameters, $match);
-        $decoded['date'] = new \DateTime($match[0]);
-
-        preg_match('/^\d+/', $parameters, $match);
-        $decoded['workplace'] = $this->em->getRepository(Workplace::class)->find($match[0]);
+        preg_match('/(^\d+)-(\d{4}-\d{2}-\d{2})$/', $parameters, $match);
+        $decoded['workplace'] = $this->em->getRepository(Workplace::class)->find($match[1]);
+        $decoded['date'] = new \DateTime($match[2]);
 
         return $decoded;
     }
