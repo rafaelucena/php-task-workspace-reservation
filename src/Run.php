@@ -40,6 +40,7 @@ class Run
     {
         $this->preparePersonsList();
         $this->prepareWorkplacesList();
+        $this->prepareEquipmentsList();
         $this->prepareScheduleList();
     }
 
@@ -75,6 +76,24 @@ class Run
             ).appendTo("#workplaces-table");
           });';
         $this->baseHtml = str_replace('//::scripts-workplaces::', $scripts, $this->baseHtml);
+    }
+
+    private function prepareEquipmentsList()
+    {
+        $equipmentService = new EquipmentService($this->em);
+        $data = $equipmentService->getAll();
+
+        $scripts = 'var equipmentsData = ' . json_encode($data) . ';
+          $.each(equipmentsData, function(equipmentIndex, item) {
+            //var personData = item.id + "-" + equipmentIndex;
+            var $tr = $("<tr>").append(
+              $("<th scope=\'row\'>").text(item.designation),
+              $("<td>").text(item.type),
+              $("<td>").text(item.description),
+              $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.workplace)
+            ).appendTo("#equipments-table");
+          });';
+        $this->baseHtml = str_replace('//::scripts-equipments::', $scripts, $this->baseHtml);
     }
 
     private function prepareScheduleList()
