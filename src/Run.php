@@ -63,17 +63,16 @@ class Run
         $scripts = 'var personsData = ' . json_encode($data) . ';
           // Fill the table
           $.each(personsData, function(personIndex, item) {
-            var personData = item.id;
             var $tr = $("<tr>").append(
               $("<th scope=\'row\'>").text(item.fullname),
               $("<td class=\'update-person\' contenteditable=\'true\'>")
-                .attr("data", personData + "-phone")
+                .attr("data", item.id + "-phone")
                 .text(item.phone),
               $("<td class=\'update-person\' contenteditable=\'true\'>")
-                .attr("data", personData + "-email")
+                .attr("data", item.id + "-email")
                 .text(item.email),
               $("<td class=\'update-person\' contenteditable=\'true\'>")
-                .attr("data", personData + "-description")
+                .attr("data", item.id + "-description")
                 .text(item.description)
             ).appendTo("#persons-table");
           });
@@ -163,14 +162,81 @@ class Run
         $data = $equipmentService->getAll();
 
         $scripts = 'var equipmentsData = ' . json_encode($data) . ';
+          // Fill the table
           $.each(equipmentsData, function(equipmentIndex, item) {
-            //var personData = item.id + "-" + equipmentIndex;
             var $tr = $("<tr>").append(
               $("<th scope=\'row\'>").text(item.designation),
-              $("<td>").text(item.type),
-              $("<td>").text(item.description),
-              $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.workplace)
+              $("<td class=\'update-equipment\' contenteditable=\'true\'>")
+                .attr("data", item.id + "-type")
+                .text(item.type),
+              $("<td class=\'update-equipment\' contenteditable=\'true\'>")
+                .attr("data", item.id + "-description")
+                .text(item.description),
+              $("<td class=\'update-equipment\' contenteditable=\'true\'>")
+                .attr("data", item.id + "-workplace")
+                .text(item.workplace)
             ).appendTo("#equipments-table");
+          });
+
+          // Add new equipment row
+          $("#equipments-table-label").click(function() {
+            var $tr = $("<tr>").append(
+              $("<td class=\'new-equipment\' contenteditable=\'true\'>")
+                .text("Nokia 3220"),
+              $("<td>"),
+              $("<td>"),
+              $("<td>")
+            ).appendTo("#equipments-table");
+          });
+
+          // Update the equipment
+          $("#equipments-table").on("keypress", ".update-equipment", function(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+
+            this.blur();
+            var value = $(this).text();
+            var parameters = $(this).attr("data");
+            $.ajax({
+              url: "index.php",
+              type: "post",
+              data: {
+                parameters: parameters,
+                value: value,
+                type: "equipment"
+              },
+              error: function() {
+                alert("Equipment is invalid!");
+              },
+              success: function(){
+                alert("New equipment set!");
+              }
+            });
+          });
+
+          // Create new equipment
+          $("#equipments-table").on("keypress", ".new-equipment", function(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+
+            this.blur();
+            var parameters = $(this).text();
+            $.ajax({
+              url: "index.php",
+              type: "post",
+              data: {
+                parameters: parameters,
+                type: "equipment"
+              },
+              error: function() {
+                alert("Equipment is invalid!");
+              },
+              success: function(){
+                alert("New equipment set!");
+              }
+            });
           });';
         $this->baseHtml = str_replace('//::scripts-equipments::', $scripts, $this->baseHtml);
     }
