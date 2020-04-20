@@ -18,7 +18,7 @@ class Equipment
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=63)
+     * @ORM\Column(type="string", length=63, nullable=true)
      */
     protected $type;
 
@@ -28,23 +28,23 @@ class Equipment
     protected $designation;
 
     /**
-     * @ORM\Column(type="integer", name="purchase_year")
+     * @ORM\Column(type="integer", name="purchase_year", nullable=true)
      */
     protected $purchaseYear;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     protected $value;
 
     /**
-     * @ORM\Column(type="string", length=511)
+     * @ORM\Column(type="string", length=511, nullable=true)
      */
     protected $description;
 
     /**
      * @ORM\OneToOne(targetEntity="Workplace", inversedBy="equipment")
-     * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="workplace_id", referencedColumnName="id", nullable=true)
      */
     protected $workplace;
 
@@ -68,7 +68,7 @@ class Equipment
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -102,7 +102,7 @@ class Equipment
     /**
      * @return integer
      */
-    public function getPurchaseYear(): int
+    public function getPurchaseYear(): ?int
     {
         return $this->purchaseYear;
     }
@@ -119,7 +119,7 @@ class Equipment
     /**
      * @return float
      */
-    public function getValue(): float
+    public function getValue(): ?float
     {
         return $this->value;
     }
@@ -136,7 +136,7 @@ class Equipment
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
