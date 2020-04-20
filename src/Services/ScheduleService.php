@@ -67,9 +67,37 @@ class ScheduleService extends BaseService
         $this->em->flush();
     }
 
-    public function getAll()
+    /**
+     * @return array
+     */
+    public function getAll(): array
     {
-        $dates = ['2020-04-21', '2020-04-20', '2020-04-19'];
+        $today = new \DateTime();
+        $tomorrow = new \DateTime('+1 day');
+        $aftertomorrow = new \DateTime('+2 days');
+
+        $dates = [
+            $aftertomorrow->format('Y-m-d'),
+            $tomorrow->format('Y-m-d'),
+            $today->format('Y-m-d'),
+        ];
+
+        // $dates = ['2020-04-21', '2020-04-20', '2020-04-19'];
+        $allWorkplaces = $this->getWorkplacesWithDate($dates);
+
+        $last = reset($dates);
+        $first = end($dates);
+        $schedules = $this->getSchedules($first, $last);
+
+        return $this->fillWorkplacesDatesWithSchedules($allWorkplaces, $schedules);
+    }
+
+    /**
+     * @param array $dates
+     * @return array
+     */
+    private function getWorkplacesWithDate(array $dates): array
+    {
         $workplaces = $this->em->getRepository(Workplace::class)->findBy([], ['designation' => 'ASC']);
 
         $list = [];
@@ -92,23 +120,41 @@ class ScheduleService extends BaseService
             $mapped[$date] = $list;
         }
 
-        $last = reset($dates);
-        $first = end($dates);
-        $rsm = new ResultSetMappingBuilder($this->em);
-        $rsm->addRootEntityFromClassMetadata('Recruitment\Entities\Schedule', 's');
+        return $mapped;
+    }
+
+    /**
+     * @param string $dateFrom
+     * @param string $dateUntil
+     * @return array
+     */
+    private function getSchedules(string $dateFrom, string $dateUntil): array
+    {
+        $resultSet = new ResultSetMappingBuilder($this->em);
+        $resultSet->addRootEntityFromClassMetadata(Schedule::class, 's');
         $sql = "SELECT
                     s.*
                 FROM
                     schedules s
                 WHERE
-                    s.during BETWEEN '$first 00:00:00'
-                AND
-                    '$last 00:00:00'
+                    s.during
+                    BETWEEN
+                        '$dateFrom 00:00:00'
+                    AND
+                        '$dateUntil 00:00:00'
                 ORDER BY
                     s.during DESC";
-        $query = $this->em->createNativeQuery($sql, $rsm);
-        $schedules = $query->getResult();
+        $query = $this->em->createNativeQuery($sql, $resultSet);
+        return $query->getResult();
+    }
 
+    /**
+     * @param array $allWorkplaces
+     * @param array $schedules
+     * @return array
+     */
+    private function fillWorkplacesDatesWithSchedules(array $allWorkplaces, array $schedules): array
+    {
         /** @var Schedule */
         foreach ($schedules as $schedule) {
             /** @var Workplace */
@@ -116,10 +162,10 @@ class ScheduleService extends BaseService
             /** @var Person */
             $person = $schedule->getPerson();
 
-            $mapped[$schedule->getDuring()][$workplace->getDesignation()]['during'] = $schedule->getDuring();
-            $mapped[$schedule->getDuring()][$workplace->getDesignation()]['person'] = $person->getName();
+            $allWorkplaces[$schedule->getDuring()][$workplace->getDesignation()]['during'] = $schedule->getDuring();
+            $allWorkplaces[$schedule->getDuring()][$workplace->getDesignation()]['person'] = $person->getName();
         }
 
-        return $mapped;
+        return $allWorkplaces;
     }
 }
