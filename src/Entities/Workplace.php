@@ -83,7 +83,7 @@ class Workplace
     /**
      * @return Equipment
      */
-    public function getEquipment(): Equipment
+    public function getEquipment(): ?Equipment
     {
         return $this->equipment;
     }
