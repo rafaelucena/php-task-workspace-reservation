@@ -39,6 +39,7 @@ class Run
                     $personService->save($request);
                     return;
                 }
+                $personService->update($request);
                 return;
         }
     }
@@ -57,16 +58,19 @@ class Run
         $data = $personService->getAll();
 
         $scripts = 'var personsData = ' . json_encode($data) . ';
+          // Fill the table
           $.each(personsData, function(personIndex, item) {
-            //var personData = item.id + "-" + personIndex;
+            var personData = item.id;
             var $tr = $("<tr>").append(
               $("<th scope=\'row\'>").text(item.fullname),
-              $("<td>").text(item.phone),
-              $("<td>").text(item.email),
-              $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.description)
+              $("<td class=\'update-person\' contenteditable=\'true\'>").attr("data", personData + "-phone").text(item.phone),
+              $("<td class=\'update-person\' contenteditable=\'true\'>").attr("data", personData + "-email").text(item.email),
+              $("<td class=\'update-person\' contenteditable=\'true\'>").attr("data", personData + "-description").text(item.description)
             ).appendTo("#persons-table");
           });
-          $("#persons-table-label").click( function () {
+
+          // Add new person row
+          $("#persons-table-label").click(function() {
             var $tr = $("<tr>").append(
               $("<td class=\'new-person\' contenteditable=\'true\'>").text("Lasname, Name"),
               $("<td>"),
@@ -74,7 +78,38 @@ class Run
               $("<td>")
             ).appendTo("#persons-table");
           });
-          $("#persons-table").on("focusout", ".new-person", function() {
+
+          // Update the person
+          $("#persons-table").on("keypress", ".update-person", function(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+            this.blur();
+            var value = $(this).text();
+            var parameters = $(this).attr("data");
+            $.ajax({
+              url: "index.php",
+              type: "post",
+              data: {
+                parameters: parameters,
+                value: value,
+                type: "person"
+              },
+              error: function() {
+                alert("Name is invalid!");
+              },
+              success: function(){
+                alert("New person set!");
+              }
+            });
+          });
+
+          // Create new person
+          $("#persons-table").on("keypress", ".new-person", function(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+
             var parameters = $(this).text();
             $.ajax({
               url: "index.php",
@@ -164,7 +199,7 @@ class Run
           });
           $(".schedule-person").focusout(function() {
             var value = $(this).text();
-            var parameters = $(this).attr("data")
+            var parameters = $(this).attr("data");
             $.ajax({
               url: "index.php",
               type: "post",
