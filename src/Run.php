@@ -33,6 +33,13 @@ class Run
                 }
                 $scheduleService->save($request);
                 return;
+            case 'person':
+                $personService = new PersonService($this->em);
+                if (empty($request['value'])) {
+                    $personService->save($request);
+                    return;
+                }
+                return;
         }
     }
 
@@ -58,6 +65,31 @@ class Run
               $("<td>").text(item.email),
               $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.description)
             ).appendTo("#persons-table");
+          });
+          $("#persons-table-label").click( function () {
+            var $tr = $("<tr>").append(
+              $("<td class=\'new-person\' contenteditable=\'true\'>").text("Lasname, Name"),
+              $("<td>"),
+              $("<td>"),
+              $("<td>")
+            ).appendTo("#persons-table");
+          });
+          $("#persons-table").on("focusout", ".new-person", function() {
+            var parameters = $(this).text();
+            $.ajax({
+              url: "index.php",
+              type: "post",
+              data: {
+                parameters: parameters,
+                type: "person"
+              },
+              error: function() {
+                alert("Name is invalid!");
+              },
+              success: function(){
+                alert("New person set!");
+              }
+            });
           });';
         $this->baseHtml = str_replace('//::scripts-persons::', $scripts, $this->baseHtml);
     }
