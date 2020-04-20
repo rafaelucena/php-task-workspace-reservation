@@ -33,6 +33,16 @@ class ScheduleService extends BaseService
 
         $this->delete($request);
 
+        $schedule = $this->em->getRepository(Schedule::class)->findOneBy([
+            'during' => $decoded['date'],
+            'person' => $person,
+        ]);
+
+        if ($schedule !== null) {
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
+        }
+
         $schedule = new Schedule();
         $schedule->setWorkplace($decoded['workplace']);
         $schedule->setPerson($person);
