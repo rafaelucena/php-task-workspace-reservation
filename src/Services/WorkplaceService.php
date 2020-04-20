@@ -33,7 +33,39 @@ class WorkplaceService extends BaseService
 
     public function update(array $request)
     {
-        return true;
+        if (empty($request['parameters'])) {
+            return false;
+        }
+
+        $decoded = $this->decodeParameters($request['parameters'], 'update');
+        /** @var Workplace */
+        $workplace = $this->em->getRepository(Workplace::class)->find($decoded['id']);
+        if ($workplace === null) {
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
+        }
+
+        switch ($decoded['parameter']) {
+            case 'description':
+                $workplace->setDescription($request['value']);
+                break;
+        }
+
+        $this->em->persist($workplace);
+        $this->em->flush();
+
+        return ['status' => 'success'];
+    }
+
+    private function decodeParameters($parameters)
+    {
+        $decoded = [];
+
+        preg_match('/^(\d+)-(\w+)$/', $parameters, $match);
+        $decoded['id'] = $match[1];
+        $decoded['parameter'] = $match[2];
+
+        return $decoded;
     }
 
     public function getAll()
