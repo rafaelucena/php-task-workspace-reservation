@@ -2,6 +2,7 @@
 
 namespace Recruitment\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,62 +48,103 @@ class Person
      */
     protected $schedules;
 
-    public function getId()
+    /**
+     * @return integer
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setName($name)
+    /**
+     * @param string $name
+     * @return void
+     */
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setLastname($lastname)
+    /**
+     * @param string $lastname
+     * @return void
+     */
+    public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
     }
 
-    public function getLastname()
+    /**
+     * @return string
+     */
+    public function getLastname(): string
     {
         return $this->lastname;
     }
 
-    public function setPhone($phone)
+    /**
+     * @param string $phone
+     * @return void
+     */
+    public function setPhone(string $phone): void
     {
         $this->phone = $phone;
     }
 
-    public function getPhone()
+    /**
+     * @return string
+     */
+    public function getPhone(): string
     {
         return $this->phone;
     }
 
-    public function setEmail($email)
+    /**
+     * @param string $email
+     * @return void
+     */
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    public function getEmail()
+    /**
+     * @return string
+     */
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setDescription($description)
+    /**
+     * @param string $description
+     * @return void
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    public function getDescription()
+    /**
+     * @return string
+     */
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getSchedules()
+    /**
+     * @return ArrayCollection
+     */
+    public function getSchedules(): ArrayCollection
     {
         return $this->schedules;
     }
