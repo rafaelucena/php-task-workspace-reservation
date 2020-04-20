@@ -62,16 +62,9 @@ class Run
             $tableData .= $table;
         }
 
-        $container = '<div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8 bd-content">' . $tableData . '</div>
-          <div class="col-md-2"></div>
-        </div>';
-        $this->baseHtml = str_replace('::data::', $container, $this->baseHtml);
+        $this->baseHtml = str_replace('::data-schedule::', $tableData, $this->baseHtml);
 
         $scripts = 'var tableData = ' . json_encode($data) . ';
-          $(document).ready(function() {
-            $(function() {
               $.each(tableData, function(tableIndex, list) {
                 $.each(list, function(listIndex, item) {
                   var personData = item.data + "-" + tableIndex;
@@ -79,11 +72,11 @@ class Run
                     $("<th scope=\'row\'>").text(item.workplace),
                     $("<td>").text(item.equipment),
                     $("<td>").text(tableIndex),
-                    $("<td class=\'person\' contenteditable=\'true\'>").attr("data", personData).text(item.person)
+                    $("<td class=\'schedule-person\' contenteditable=\'true\'>").attr("data", personData).text(item.person)
                   ).appendTo("#schedule-table-" + tableIndex.replace(/-/g, ""));
                 });
               });
-              $(".person").focusout(function() {
+              $(".schedule-person").focusout(function() {
                 var value = $(this).text();
                 var parameters = $(this).attr("data")
                 $.ajax({
@@ -101,10 +94,8 @@ class Run
                     alert("New schedule set!");
                   }
                 });
-              });
-            });
-          });';
-        $this->baseHtml = str_replace('::scripts::', $scripts, $this->baseHtml);
+              });';
+        $this->baseHtml = str_replace('//::scripts-schedule::', $scripts, $this->baseHtml);
     }
 
     public function page()

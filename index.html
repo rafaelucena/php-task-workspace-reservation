@@ -4,7 +4,11 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <script>
-        ::scripts::
+        $(document).ready(function() {
+            $(function() {
+                //::scripts-schedule::
+            });
+        });
     </script>
     <meta charset="UTF-8" />
     <title>HASH ENCODERd</title>
@@ -14,7 +18,7 @@
 <body>
     <style>
         .container {
-            width: 800px;
+            width: 1200px;
             border: 15px solid #643171;
         }
         
@@ -73,7 +77,10 @@
         }
     </style>
     <div class="container">
-        ::data::
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6 bd-content">::data-schedule::</div>
+        </div>
     </div>
 </body>
 
