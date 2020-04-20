@@ -11,18 +11,17 @@ use Recruitment\Services\BaseService;
 
 class ScheduleService extends BaseService
 {
-    public function save(array $request)
+    /**
+     * @param array $request
+     * @return array
+     */
+    public function save(array $request): array
     {
         if (empty($request['parameters'])) {
             return false;
         }
 
-        preg_match('/\d{4}-\d{2}-\d{2}$/', $request['parameters'], $match);
-        $date = new \DateTime($match[0]);
-
-        preg_match('/^\d+/', $request['parameters'], $match);
-        $workplaceId = $match[0];
-
+        $decoded = $this->decodeParameters($request['parameters']);
         $person = $this->em->getRepository(Person::class)->findOneBy([
             'name' => $request['value'],
         ]);
@@ -34,12 +33,10 @@ class ScheduleService extends BaseService
 
         $this->delete($request);
 
-        $workplace = $this->em->getRepository(Workplace::class)->find($workplaceId);
-
         $schedule = new Schedule();
-        $schedule->setWorkplace($workplace);
+        $schedule->setWorkplace($decoded['workplace']);
         $schedule->setPerson($person);
-        $schedule->setDuring($date);
+        $schedule->setDuring($decoded['date']);
         $schedule->setDescription('Maintenance');
 
         $this->em->persist($schedule);
@@ -48,23 +45,39 @@ class ScheduleService extends BaseService
         return ['status' => 'success'];
     }
 
-    public function delete(array $request)
+    /**
+     * @param array $request
+     * @return void
+     */
+    public function delete(array $request): void
     {
-        preg_match('/\d{4}-\d{2}-\d{2}$/', $request['parameters'], $match);
-        $date = new \DateTime($match[0]);
-
-        preg_match('/^\d+/', $request['parameters'], $match);
-        $workplaceId = $match[0];
-
-        $workplace = $this->em->getRepository(Workplace::class)->find($workplaceId);
-
+        $decoded = $this->decodeParameters($request['parameters']);
         $schedule = $this->em->getRepository(Schedule::class)->findOneBy([
-            'workplace' => $workplace,
-            'during' => $date,
+            'workplace' => $decoded['workplace'],
+            'during' => $decoded['date'],
         ]);
+
+        if ($schedule === null) {
+            return;
+        }
 
         $this->em->remove($schedule);
         $this->em->flush();
+    }
+
+    /**
+     * @param array $parameters
+     * @return array
+     */
+    private function decodeParameters(string $parameters): array
+    {
+        preg_match('/\d{4}-\d{2}-\d{2}$/', $parameters, $match);
+        $decoded['date'] = new \DateTime($match[0]);
+
+        preg_match('/^\d+/', $parameters, $match);
+        $decoded['workplace'] = $this->em->getRepository(Workplace::class)->find($match[0]);
+
+        return $decoded;
     }
 
     /**
