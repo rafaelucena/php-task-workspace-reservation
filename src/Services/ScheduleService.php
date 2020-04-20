@@ -98,16 +98,16 @@ class ScheduleService extends BaseService
         $aftertomorrow = new \DateTime('+2 days');
 
         $dates = [
-            $aftertomorrow->format('Y-m-d'),
-            $tomorrow->format('Y-m-d'),
             $today->format('Y-m-d'),
+            $tomorrow->format('Y-m-d'),
+            $aftertomorrow->format('Y-m-d'),
         ];
 
-        // $dates = ['2020-04-21', '2020-04-20', '2020-04-19'];
-        $allWorkplaces = $this->getWorkplacesWithDate($dates);
+        // I want the order to be the future on the top
+        $allWorkplaces = $this->getWorkplacesWithDate(array_reverse($dates));
 
-        $last = reset($dates);
-        $first = end($dates);
+        $first = reset($dates);
+        $last = end($dates);
         $schedules = $this->getSchedules($first, $last);
 
         return $this->fillWorkplacesDatesWithSchedules($allWorkplaces, $schedules);
