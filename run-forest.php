@@ -7,6 +7,9 @@ use Recruitment\Entities\Person;
 use Recruitment\Entities\Schedule;
 use Recruitment\Entities\Workplace;
 
+$dateTime = new \DateTime('today');
+$dateTime->setTime(0, 0);
+
 // First wave
 $person = new Person();
 $person->setName('Douglas');
@@ -28,7 +31,7 @@ $equipment->setDescription('Overheating a little');
 $equipment->setWorkplace($workplace);
 
 $schedule = new Schedule();
-$schedule->setDuring(new \DateTime('today'));
+$schedule->setDuring($dateTime);
 $schedule->setDescription('Interview');
 $schedule->setWorkplace($workplace);
 $schedule->setPerson($person);
@@ -37,6 +40,7 @@ $entityManager->persist($person);
 $entityManager->persist($workplace);
 $entityManager->persist($equipment);
 $entityManager->persist($schedule);
+$entityManager->flush();
 
 // Second wave
 $person = new Person();
@@ -59,7 +63,7 @@ $equipment->setDescription('Overheating a LOT');
 $equipment->setWorkplace($workplace);
 
 $schedule = new Schedule();
-$schedule->setDuring(new \DateTime('+1 day'));
+$schedule->setDuring($dateTime->modify('+1 day'));
 $schedule->setDescription('Interview');
 $schedule->setWorkplace($workplace);
 $schedule->setPerson($person);
@@ -68,6 +72,7 @@ $entityManager->persist($person);
 $entityManager->persist($workplace);
 $entityManager->persist($equipment);
 $entityManager->persist($schedule);
+$entityManager->flush();
 
 // Third wave
 $person = new Person();
@@ -90,7 +95,7 @@ $equipment->setDescription('Slow on startup');
 $equipment->setWorkplace($workplace);
 
 $schedule = new Schedule();
-$schedule->setDuring(new \DateTime('+2 days'));
+$schedule->setDuring($dateTime->modify('+1 day'));
 $schedule->setDescription('Maintenance');
 $schedule->setWorkplace($workplace);
 $schedule->setPerson($person);
@@ -99,10 +104,11 @@ $entityManager->persist($person);
 $entityManager->persist($workplace);
 $entityManager->persist($equipment);
 $entityManager->persist($schedule);
+$entityManager->flush();
 
 // Fourth wave
 $schedule = new Schedule();
-$schedule->setDuring(new \DateTime('+1 days'));
+$schedule->setDuring($dateTime->modify('-1 day'));
 $schedule->setDescription('Maintenance');
 $schedule->setWorkplace($workplace);
 $schedule->setPerson($person);
