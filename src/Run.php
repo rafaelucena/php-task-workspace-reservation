@@ -44,6 +44,14 @@ class Run
                 }
                 $personService->update($request);
                 return;
+            case 'equipment':
+                $equipmentService = new EquipmentService($this->em);
+                if (empty($request['value'])) {
+                    $equipmentService->save($request);
+                    return;
+                }
+                $equipmentService->update($request);
+                return;
         }
     }
 
