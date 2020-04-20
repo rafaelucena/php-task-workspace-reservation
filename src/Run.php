@@ -2,6 +2,7 @@
 
 namespace Recruitment;
 
+use Doctrine\ORM\EntityManager;
 use Recruitment\Services\EquipmentService;
 use Recruitment\Services\PersonService;
 use Recruitment\Services\ScheduleService;
@@ -9,8 +10,10 @@ use Recruitment\Services\WorkplaceService;
 
 class Run
 {
+    /** @var string */
     protected $baseHtml = '';
 
+    /** @var EntityManager */
     private $em;
 
     public function __construct($entityManager)
@@ -91,6 +94,7 @@ class Run
             if (event.keyCode !== 13) {
               return;
             }
+
             this.blur();
             var value = $(this).text();
             var parameters = $(this).attr("data");
@@ -117,6 +121,7 @@ class Run
               return;
             }
 
+            this.blur();
             var parameters = $(this).text();
             $.ajax({
               url: "index.php",
@@ -194,6 +199,7 @@ class Run
         $this->baseHtml = str_replace('::data-schedule::', $tableData, $this->baseHtml);
 
         $scripts = 'var tableData = ' . json_encode($data) . ';
+          // Fill table
           $.each(tableData, function(tableIndex, list) {
             $.each(list, function(listIndex, item) {
               var personData = item.id + "-" + tableIndex;
@@ -206,6 +212,7 @@ class Run
             });
           });
 
+          // Edit person on the schedule table
           $(".schedule-table").on("keypress", ".schedule-person", function(event) {
             if (event.keyCode !== 13) {
               return;
