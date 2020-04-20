@@ -48,67 +48,112 @@ class Equipment
      */
     protected $workplace;
 
-    public function getId()
+    /**
+     * @return integer
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setType($type)
+    /**
+     * @param string $type
+     * @return void
+     */
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    public function getType()
+    /**
+     * @return string
+     */
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function setDesignation($designation)
+    /**
+     * @param string $designation
+     * @return void
+     */
+    public function setDesignation(string $designation): void
     {
         $this->designation = $designation;
     }
 
-    public function getDesignation()
+    /**
+     * @return string
+     */
+    public function getDesignation(): string
     {
         return $this->designation;
     }
 
-    public function setPurchaseYear($purchaseYear)
+    /**
+     * @param integer $purchaseYear
+     * @return void
+     */
+    public function setPurchaseYear(int $purchaseYear): void
     {
         $this->purchaseYear = $purchaseYear;
     }
 
-    public function getPurchaseYear()
+    /**
+     * @return integer
+     */
+    public function getPurchaseYear(): int
     {
         return $this->purchaseYear;
     }
 
-    public function setValue($value)
+    /**
+     * @param float $value
+     * @return void
+     */
+    public function setValue(float $value): void
     {
         $this->value = $value;
     }
 
-    public function getValue()
+    /**
+     * @return float
+     */
+    public function getValue(): float
     {
         return $this->value;
     }
 
-    public function setDescription($description)
+    /**
+     * @param string $description
+     * @return void
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    public function getDescription()
+    /**
+     * @return string
+     */
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setWorkplace($workplace)
+    /**
+     * @param Workplace $workplace
+     * @return void
+     */
+    public function setWorkplace(Workplace $workplace): void
     {
         $this->workplace = $workplace;
     }
 
-    public function getWorkspace()
+    /**
+     * @return Workplace
+     */
+    public function getWorkspace(): Workplace
     {
         return $this->workspace;
     }
