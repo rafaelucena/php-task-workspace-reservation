@@ -103,6 +103,11 @@ class Equipment
         return $this->description;
     }
 
+    public function setWorkplace($workplace)
+    {
+        $this->workplace = $workplace;
+    }
+
     public function getWorkspace()
     {
         return $this->workspace;
