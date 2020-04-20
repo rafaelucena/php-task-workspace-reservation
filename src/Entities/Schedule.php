@@ -39,47 +39,78 @@ class Schedule
      */
     protected $person;
 
-    public function getId()
+    /**
+     * @return integer
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setDuring($during)
+    /**
+     * @param \DateTime $during
+     * @return void
+     */
+    public function setDuring(\DateTime $during): void
     {
         $this->during = $during;
     }
 
-    public function getDuring()
+    /**
+     * @return string
+     */
+    public function getDuring(): string
     {
         return $this->during->format('Y-m-d');
     }
 
-    public function setDescription($description)
+    /**
+     * @param string $description
+     * @return void
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    public function getDescription()
+    /**
+     * @return string
+     */
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setWorkplace($workplace)
+    /**
+     * @param WorkPlace $workplace
+     * @return void
+     */
+    public function setWorkplace(WorkPlace $workplace): void
     {
         $this->workplace = $workplace;
     }
 
-    public function getWorkplace()
+    /**
+     * @return Workplace
+     */
+    public function getWorkplace(): Workplace
     {
         return $this->workplace;
     }
 
-    public function setPerson($person)
+    /**
+     * @param Person $person
+     * @return void
+     */
+    public function setPerson(Person $person): void
     {
         $this->person = $person;
     }
 
-    public function getPerson()
+    /**
+     * @return Person
+     */
+    public function getPerson(): Person
     {
         return $this->person;
     }
