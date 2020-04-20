@@ -36,7 +36,26 @@ class Run
 
     public function prepareScreen(string $screen)
     {
+        $this->preparePersonsList();
         $this->prepareScheduleList();
+    }
+
+    public function preparePersonsList()
+    {
+        $personService = new PersonService($this->em);
+        $data = $personService->getAll();
+
+        $scripts = 'var personsData = ' . json_encode($data) . ';
+          $.each(personsData, function(personIndex, item) {
+            //var personData = item.id + "-" + personIndex;
+            var $tr = $("<tr>").append(
+              $("<th scope=\'row\'>").text(item.fullname),
+              $("<td>").text(item.phone),
+              $("<td>").text(item.email),
+              $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.description)
+            ).appendTo("#persons-table");
+          });';
+        $this->baseHtml = str_replace('//::scripts-persons::', $scripts, $this->baseHtml);
     }
 
     private function prepareScheduleList()

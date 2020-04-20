@@ -130,9 +130,9 @@ class ScheduleService extends BaseService
             $equipment = $workplace->getEquipment();
 
             $list[$workplace->getDesignation()] = [
+                'id' => $workplace->getId(),
                 'workplace' => $workplace->getDesignation(),
                 'equipment' => $equipment->getDesignation(),
-                'data' => $workplace->getId(),
                 'during' => null,
                 'person' => null,
             ];

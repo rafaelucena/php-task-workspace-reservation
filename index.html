@@ -6,6 +6,7 @@
     <script>
         $(document).ready(function() {
             $(function() {
+                //::scripts-persons::
                 //::scripts-schedule::
             });
         });
@@ -18,25 +19,26 @@
 <body>
     <style>
         .container {
-            width: 1200px;
+            width: 1400px;
+            max-width: 1600px;
             border: 15px solid #643171;
         }
-        
+
         .around-top-gray,
         .around-top-white {}
-        
+
         h1 {
             font-size: 30px;
         }
-        
+
         h2 {
             font-size: 17px;
         }
-        
+
         h4 {
             font-size: 13px;
         }
-        
+
         h1,
         h2,
         h3,
@@ -44,33 +46,33 @@
             color: #643171;
             font-weight: bold;
         }
-        
+
         .around-top-white {
             background-color: #ffffff;
             height: 15%;
         }
-        
+
         .around-top-gray {
             height: 20%;
             background-color: #f1f3f4;
         }
-        
+
         .around-middle {
             text-align: center;
         }
-        
+
         .around-bottom {
             text-align: center;
         }
-        
+
         p {
             font-size: 13px;
         }
-        
+
         p.footer {
             font-size: 12px;
         }
-        
+
         .row {
             padding-top: 10px;
             padding-bottom: 10px;
@@ -78,8 +80,26 @@
     </style>
     <div class="container">
         <div class="row">
-            <div class="col-md-6"></div>
-            <div class="col-md-6 bd-content">::data-schedule::</div>
+            <div class="col-md-6">
+                <table class="table table-hover" id="persons-table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="4" class="text-left">People</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Full name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6 bd-content">
+                ::data-schedule::
+            </div>
         </div>
     </div>
 </body>
