@@ -154,12 +154,73 @@ class Run
         $data = $workplaceService->getAll();
 
         $scripts = 'var workplacesData = ' . json_encode($data) . ';
+          // Fill the table
           $.each(workplacesData, function(workplaceIndex, item) {
-            //var personData = item.id + "-" + workplaceIndex;
             var $tr = $("<tr>").append(
               $("<th scope=\'row\'>").text(item.designation),
-              $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.description)
+              $("<td class=\'update-workplace\' contenteditable=\'true\'>")
+                .attr("data", item.id + "-description")
+                .text(item.description)
             ).appendTo("#workplaces-table");
+          });
+
+          // Add new workplace row
+          $("#workplaces-table-label").click(function() {
+            var $tr = $("<tr>").append(
+              $("<td class=\'new-workplace\' contenteditable=\'true\'>")
+                .text("A51"),
+              $("<td>")
+            ).appendTo("#workplaces-table");
+          });
+
+          // Update the workplace
+          $("#workplaces-table").on("keypress", ".update-workplace", function(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+
+            this.blur();
+            var value = $(this).text();
+            var parameters = $(this).attr("data");
+            $.ajax({
+              url: "index.php",
+              type: "post",
+              data: {
+                parameters: parameters,
+                value: value,
+                type: "workplace"
+              },
+              error: function() {
+                alert("Name is invalid!");
+              },
+              success: function(){
+                alert("New workplace set!");
+              }
+            });
+          });
+
+          // Create new workplace
+          $("#workplaces-table").on("keypress", ".new-workplace", function(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+
+            this.blur();
+            var parameters = $(this).text();
+            $.ajax({
+              url: "index.php",
+              type: "post",
+              data: {
+                parameters: parameters,
+                type: "workplace"
+              },
+              error: function() {
+                alert("Name is invalid!");
+              },
+              success: function(){
+                alert("New workplace set!");
+              }
+            });
           });';
         $this->baseHtml = str_replace('//::scripts-workplaces::', $scripts, $this->baseHtml);
     }
