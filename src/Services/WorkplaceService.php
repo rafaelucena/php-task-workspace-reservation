@@ -7,6 +7,35 @@ use Recruitment\Services\BaseService;
 
 class WorkplaceService extends BaseService
 {
+    public function save(array $request)
+    {
+        if (empty($request['parameters'])) {
+            return false;
+        }
+
+        $workplace = $this->em->getRepository(Workplace::class)->findOneBy([
+            'designation' => $request['parameters'],
+        ]);
+
+        if ($workplace !== null) {
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
+        }
+
+        $workplace = new Workplace();
+        $workplace->setDesignation($request['parameters']);
+
+        $this->em->persist($workplace);
+        $this->em->flush();
+
+        return ['status' => 'success'];
+    }
+
+    public function update(array $request)
+    {
+        return true;
+    }
+
     public function getAll()
     {
         $workplaces = $this->em->getRepository(Workplace::class)->findBy([], ['designation' => 'ASC']);

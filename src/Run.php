@@ -44,6 +44,14 @@ class Run
                 }
                 $personService->update($request);
                 return;
+            case 'workplace':
+                $workplaceService = new WorkplaceService($this->em);
+                if (isset($request['value']) === false) {
+                    $workplaceService->save($request);
+                    return;
+                }
+                $workplaceService->update($request);
+                return;
             case 'equipment':
                 $equipmentService = new EquipmentService($this->em);
                 if (isset($request['value']) === false) {
