@@ -24,7 +24,7 @@ class Workplace
     protected $designation;
 
     /**
-     * @ORM\Column(type="string", length=511)
+     * @ORM\Column(type="string", length=511, nullable=true)
      */
     protected $description;
 
@@ -75,7 +75,7 @@ class Workplace
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

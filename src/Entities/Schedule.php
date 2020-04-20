@@ -23,7 +23,7 @@ class Schedule
     protected $during;
 
     /**
-     * @ORM\Column(type="string", length=511)
+     * @ORM\Column(type="string", length=511, nullable=true)
      */
     protected $description;
 
