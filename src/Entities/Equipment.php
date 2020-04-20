@@ -151,10 +151,10 @@ class Equipment
     }
 
     /**
-     * @return Workplace
+     * @return null|Workplace
      */
-    public function getWorkspace(): Workplace
+    public function getWorkplace(): ?Workplace
     {
-        return $this->workspace;
+        return $this->workplace;
     }
 }
