@@ -38,7 +38,7 @@ class Run
                 return;
             case 'person':
                 $personService = new PersonService($this->em);
-                if (empty($request['value'])) {
+                if (isset($request['value']) === false) {
                     $personService->save($request);
                     return;
                 }
@@ -46,7 +46,7 @@ class Run
                 return;
             case 'equipment':
                 $equipmentService = new EquipmentService($this->em);
-                if (empty($request['value'])) {
+                if (isset($request['value']) === false) {
                     $equipmentService->save($request);
                     return;
                 }
