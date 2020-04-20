@@ -63,16 +63,23 @@ class Run
             var personData = item.id;
             var $tr = $("<tr>").append(
               $("<th scope=\'row\'>").text(item.fullname),
-              $("<td class=\'update-person\' contenteditable=\'true\'>").attr("data", personData + "-phone").text(item.phone),
-              $("<td class=\'update-person\' contenteditable=\'true\'>").attr("data", personData + "-email").text(item.email),
-              $("<td class=\'update-person\' contenteditable=\'true\'>").attr("data", personData + "-description").text(item.description)
+              $("<td class=\'update-person\' contenteditable=\'true\'>")
+                .attr("data", personData + "-phone")
+                .text(item.phone),
+              $("<td class=\'update-person\' contenteditable=\'true\'>")
+                .attr("data", personData + "-email")
+                .text(item.email),
+              $("<td class=\'update-person\' contenteditable=\'true\'>")
+                .attr("data", personData + "-description")
+                .text(item.description)
             ).appendTo("#persons-table");
           });
 
           // Add new person row
           $("#persons-table-label").click(function() {
             var $tr = $("<tr>").append(
-              $("<td class=\'new-person\' contenteditable=\'true\'>").text("Lasname, Name"),
+              $("<td class=\'new-person\' contenteditable=\'true\'>")
+                .text("Lasname, Name"),
               $("<td>"),
               $("<td>"),
               $("<td>")
@@ -170,7 +177,8 @@ class Run
 
         $tableData = '';
         foreach ($data as $key => $list) {
-            $table = '<table class="schedule-table table table-hover" id="schedule-table-' . str_replace('-', '', $key) . '">
+            $tableId = str_replace('-', '', $key);
+            $table = '<table class="schedule-table table table-hover" id="schedule-table-' . $tableId . '">
               <thead class="thead-light">
               <tr><th colspan="4" class="text-left">' . $key . '</th></tr>
               <tr>
