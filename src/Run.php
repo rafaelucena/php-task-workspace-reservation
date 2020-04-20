@@ -2,6 +2,7 @@
 
 namespace Recruitment;
 
+use Recruitment\Services\EquipmentService;
 use Recruitment\Services\PersonService;
 use Recruitment\Services\ScheduleService;
 use Recruitment\Services\WorkplaceService;
@@ -42,23 +43,7 @@ class Run
         $this->prepareScheduleList();
     }
 
-    public function prepareWorkplacesList()
-    {
-        $workplaceService = new WorkplaceService($this->em);
-        $data = $workplaceService->getAll();
-
-        $scripts = 'var workplacesData = ' . json_encode($data) . ';
-          $.each(workplacesData, function(workplaceIndex, item) {
-            //var personData = item.id + "-" + workplaceIndex;
-            var $tr = $("<tr>").append(
-              $("<th scope=\'row\'>").text(item.designation),
-              $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.description)
-            ).appendTo("#workplaces-table");
-          });';
-        $this->baseHtml = str_replace('//::scripts-workplaces::', $scripts, $this->baseHtml);
-    }
-
-    public function preparePersonsList()
+    private function preparePersonsList()
     {
         $personService = new PersonService($this->em);
         $data = $personService->getAll();
@@ -74,6 +59,22 @@ class Run
             ).appendTo("#persons-table");
           });';
         $this->baseHtml = str_replace('//::scripts-persons::', $scripts, $this->baseHtml);
+    }
+
+    private function prepareWorkplacesList()
+    {
+        $workplaceService = new WorkplaceService($this->em);
+        $data = $workplaceService->getAll();
+
+        $scripts = 'var workplacesData = ' . json_encode($data) . ';
+          $.each(workplacesData, function(workplaceIndex, item) {
+            //var personData = item.id + "-" + workplaceIndex;
+            var $tr = $("<tr>").append(
+              $("<th scope=\'row\'>").text(item.designation),
+              $("<td class=\'person\' contenteditable=\'true\'>").attr("data", "123").text(item.description)
+            ).appendTo("#workplaces-table");
+          });';
+        $this->baseHtml = str_replace('//::scripts-workplaces::', $scripts, $this->baseHtml);
     }
 
     private function prepareScheduleList()
