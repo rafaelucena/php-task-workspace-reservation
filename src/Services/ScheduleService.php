@@ -96,7 +96,16 @@ class ScheduleService extends BaseService
         $first = end($dates);
         $rsm = new ResultSetMappingBuilder($this->em);
         $rsm->addRootEntityFromClassMetadata('Recruitment\Entities\Schedule', 's');
-        $sql = "SELECT s.* FROM schedules s WHERE s.during BETWEEN '$first 00:00:00' AND '$last 00:00:00' ORDER BY s.during DESC";
+        $sql = "SELECT
+                    s.*
+                FROM
+                    schedules s
+                WHERE
+                    s.during BETWEEN '$first 00:00:00'
+                AND
+                    '$last 00:00:00'
+                ORDER BY
+                    s.during DESC";
         $query = $this->em->createNativeQuery($sql, $rsm);
         $schedules = $query->getResult();
 

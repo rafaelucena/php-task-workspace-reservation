@@ -44,67 +44,66 @@ class Run
 
     private function prepareScheduleList()
     {
-        $listService = new ScheduleService($this->em);
-        $data = $listService->getAll();
+        $scheduleService = new ScheduleService($this->em);
+        $data = $scheduleService->getAll();
 
         $tableData = '';
         foreach ($data as $key => $list) {
             $table = '<table class="table table-hover" id="schedule-table-' . str_replace('-', '', $key) . '">
-                <thead class="thead-light">
-                <tr><th colspan="4" class="text-left">' . $key . '</th></tr>
-                <tr>
-                    <th scope="col">Workplace</th>
-                    <th scope="col">Equipment</th>
-                    <th scope="col">During</th>
-                    <th scope="col">Person</th>
-                </tr>
-                </thead><tbody></tbody></table>';
+              <thead class="thead-light">
+              <tr><th colspan="4" class="text-left">' . $key . '</th></tr>
+              <tr>
+                <th scope="col">Workplace</th>
+                <th scope="col">Equipment</th>
+                <th scope="col">During</th>
+                <th scope="col">Person</th>
+              </tr>
+              </thead><tbody></tbody></table>';
             $tableData .= $table;
         }
 
         $container = '<div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 bd-content">' . $tableData . '</div>
-            <div class="col-md-2"></div>
+          <div class="col-md-2"></div>
+          <div class="col-md-8 bd-content">' . $tableData . '</div>
+          <div class="col-md-2"></div>
         </div>';
         $this->baseHtml = str_replace('::data::', $container, $this->baseHtml);
 
         $scripts = 'var tableData = ' . json_encode($data) . ';
-            $(document).ready(function() {
-                $(function() {
-                    $.each(tableData, function(tableIndex, list) {
-                        $.each(list, function(listIndex, item) {
-                            var personData = item.data + "-" + tableIndex;
-                            var $tr = $("<tr>").append(
-                                $("<th scope=\'row\'>").text(item.workplace),
-                                $("<td>").text(item.equipment),
-                                $("<td>").text(tableIndex),
-                                $("<td class=\'person\' contenteditable=\'true\'>").attr("data", personData).text(item.person)
-                            ).appendTo("#schedule-table-" + tableIndex.replace(/-/g, ""));
-                        });
-                    });
-                    $(".person").focusout(function() {
-                        var value = $(this).text();
-                        var parameters = $(this).attr("data");
-
-                        $.ajax({
-                            url: "index.php",
-                            type: "post",
-                            data: {
-                                parameters: parameters,
-                                value: value,
-                                type: "schedule"
-                            },
-                            error: function() {
-                                alert("Name is invalid!");
-                            },
-                            success: function(){
-                                alert("New schedule set!");
-                            }
-                        });
-                    });
+          $(document).ready(function() {
+            $(function() {
+              $.each(tableData, function(tableIndex, list) {
+                $.each(list, function(listIndex, item) {
+                  var personData = item.data + "-" + tableIndex;
+                  var $tr = $("<tr>").append(
+                    $("<th scope=\'row\'>").text(item.workplace),
+                    $("<td>").text(item.equipment),
+                    $("<td>").text(tableIndex),
+                    $("<td class=\'person\' contenteditable=\'true\'>").attr("data", personData).text(item.person)
+                  ).appendTo("#schedule-table-" + tableIndex.replace(/-/g, ""));
                 });
-            });';
+              });
+              $(".person").focusout(function() {
+                var value = $(this).text();
+                var parameters = $(this).attr("data")
+                $.ajax({
+                  url: "index.php",
+                  type: "post",
+                  data: {
+                    parameters: parameters,
+                    value: value,
+                    type: "schedule"
+                  },
+                  error: function() {
+                    alert("Name is invalid!");
+                  },
+                  success: function(){
+                    alert("New schedule set!");
+                  }
+                });
+              });
+            });
+          });';
         $this->baseHtml = str_replace('::scripts::', $scripts, $this->baseHtml);
     }
 
