@@ -145,7 +145,7 @@ class Equipment
      * @param Workplace $workplace
      * @return void
      */
-    public function setWorkplace(Workplace $workplace): void
+    public function setWorkplace(Workplace $workplace = null): void
     {
         $this->workplace = $workplace;
     }
