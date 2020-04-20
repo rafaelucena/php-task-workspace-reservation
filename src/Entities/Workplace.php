@@ -2,6 +2,7 @@
 
 namespace Recruitment\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,37 +38,60 @@ class Workplace
      */
     protected $schedules;
 
-    public function getId()
+    /**
+     * @return integer
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setDesignation($designation)
+    /**
+     * @param string $designation
+     * @return void
+     */
+    public function setDesignation(string $designation): void
     {
         $this->designation = $designation;
     }
 
-    public function getDesignation()
+    /**
+     * @return string
+     */
+    public function getDesignation(): string
     {
         return $this->designation;
     }
 
-    public function setDescription($description)
+    /**
+     * @param string $description
+     * @return void
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    public function getDescription()
+    /**
+     * @return string
+     */
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getEquipment()
+    /**
+     * @return Equipment
+     */
+    public function getEquipment(): Equipment
     {
         return $this->equipment;
     }
 
-    public function getSchedules()
+    /**
+     * @return ArrayCollection
+     */
+    public function getSchedules(): ArrayCollection
     {
         return $this->schedules;
     }
