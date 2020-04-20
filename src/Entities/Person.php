@@ -29,17 +29,17 @@ class Person
     protected $lastname;
 
     /**
-     * @ORM\Column(type="string", length=9)
+     * @ORM\Column(type="string", length=9, nullable=true)
      */
     protected $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $email;
 
     /**
-     * @ORM\Column(type="string", length=511)
+     * @ORM\Column(type="string", length=511, nullable=true)
      */
     protected $description;
 
@@ -102,7 +102,7 @@ class Person
     /**
      * @return string
      */
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
@@ -119,7 +119,7 @@ class Person
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -136,7 +136,7 @@ class Person
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -144,7 +144,7 @@ class Person
     /**
      * @return ArrayCollection
      */
-    public function getSchedules(): ArrayCollection
+    public function getSchedules(): ?ArrayCollection
     {
         return $this->schedules;
     }
