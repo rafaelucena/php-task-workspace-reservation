@@ -3,6 +3,7 @@
 namespace Recruitment;
 
 use Doctrine\ORM\EntityManager;
+use Recruitment\Renders\EquipmentsRender;
 use Recruitment\Renders\HomeRender;
 use Recruitment\Services\EquipmentService;
 use Recruitment\Services\PersonService;
@@ -67,6 +68,10 @@ class Run
         switch ($screen) {
             case 'list-all':
                 $this->render = new HomeRender($this->em);
+                $this->render->prepareScreen();
+                break;
+            case 'list-equipments':
+                $this->render = new EquipmentsRender($this->em);
                 $this->render->prepareScreen();
                 break;
         }

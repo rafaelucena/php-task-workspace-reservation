@@ -54,6 +54,12 @@ class EquipmentService extends BaseService
             case 'description':
                 $equipment->setDescription($request['value']);
                 break;
+            case 'purchase-year':
+                $equipment->setPurchaseYear($request['value']);
+                break;
+            case 'value':
+                $equipment->setValue($request['value']);
+                break;
             case 'workplace':
                 if (empty($request['value']) === true) {
                     $equipment->setWorkplace();
@@ -94,7 +100,7 @@ class EquipmentService extends BaseService
     {
         $decoded = [];
 
-        preg_match('/^(\d+)-(\w+)$/', $parameters, $match);
+        preg_match('/^(\d+)-(\w+-?\w+?)$/', $parameters, $match);
         $decoded['id'] = $match[1];
         $decoded['parameter'] = $match[2];
 
@@ -113,6 +119,8 @@ class EquipmentService extends BaseService
                 'type' => $equipment->getType(),
                 'designation' => $equipment->getDesignation(),
                 'description' => $equipment->getDescription(),
+                'value' => $equipment->getValue(),
+                'purchaseYear' => $equipment->getPurchaseYear(),
                 'workplace' => $equipment->getWorkplace() ? $equipment->getWorkplace()->getDesignation() : '',
             ];
         }
