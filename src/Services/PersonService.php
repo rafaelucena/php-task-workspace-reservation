@@ -10,7 +10,8 @@ class PersonService extends BaseService
     public function save(array $request)
     {
         if (empty($request['parameters'])) {
-            return false;
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
         }
 
         $decoded = $this->decodeParameters($request['parameters'], 'save');
@@ -37,7 +38,8 @@ class PersonService extends BaseService
     public function update(array $request)
     {
         if (empty($request['parameters'])) {
-            return false;
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
         }
 
         $decoded = $this->decodeParameters($request['parameters'], 'update');
@@ -48,7 +50,18 @@ class PersonService extends BaseService
             die;
         }
 
+        if (in_array($decoded['parameter'], ['name', 'lastname']) && empty($request['value']) === true) {
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
+        }
+
         switch ($decoded['parameter']) {
+            case 'name':
+                $person->setName($request['value']);
+                break;
+            case 'lastname':
+                $person->setLastname($request['value']);
+                break;
             case 'phone':
                 $person->setPhone($request['value']);
                 break;
