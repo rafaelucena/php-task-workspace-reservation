@@ -23,9 +23,14 @@ class Equipment
     protected $type;
 
     /**
-     * @ORM\Column(type="string", length=127)
+     * @ORM\Column(type="string", length=255)
      */
     protected $designation;
+
+    /**
+     * @ORM\Column(type="string", length=127, nullable=true)
+     */
+    protected $model;
 
     /**
      * @ORM\Column(type="integer", name="purchase_year", nullable=true)
@@ -88,6 +93,23 @@ class Equipment
     public function getDesignation(): string
     {
         return ucwords($this->designation);
+    }
+
+    /**
+     * @param string $model
+     * @return void
+     */
+    public function setModel(string $model): void
+    {
+        $this->model = strtolower($model);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getModel(): ?string
+    {
+        return strtoupper($this->model);
     }
 
     /**

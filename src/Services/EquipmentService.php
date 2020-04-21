@@ -11,7 +11,8 @@ class EquipmentService extends BaseService
     public function save(array $request)
     {
         if (empty($request['parameters'])) {
-            return false;
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
         }
 
         /** @var Equipment */
@@ -47,7 +48,18 @@ class EquipmentService extends BaseService
             die;
         }
 
+        if (in_array($decoded['parameter'], ['designation']) && empty($request['value']) === true) {
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
+        }
+
         switch ($decoded['parameter']) {
+            case 'designation':
+                $equipment->setDesignation($request['value']);
+                break;
+            case 'model':
+                $equipment->setModel($request['value']);
+                break;
             case 'type':
                 $equipment->setType($request['value']);
                 break;
@@ -118,6 +130,7 @@ class EquipmentService extends BaseService
                 'id' => $equipment->getId(),
                 'type' => $equipment->getType(),
                 'designation' => $equipment->getDesignation(),
+                'model' => $equipment->getModel(),
                 'description' => $equipment->getDescription(),
                 'value' => $equipment->getValue(),
                 'purchaseYear' => $equipment->getPurchaseYear(),
