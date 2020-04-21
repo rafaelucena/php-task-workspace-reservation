@@ -5,6 +5,7 @@ namespace Recruitment;
 use Doctrine\ORM\EntityManager;
 use Recruitment\Renders\EquipmentsRender;
 use Recruitment\Renders\HomeRender;
+use Recruitment\Renders\PersonsRender;
 use Recruitment\Services\EquipmentService;
 use Recruitment\Services\PersonService;
 use Recruitment\Services\ScheduleService;
@@ -72,6 +73,10 @@ class Run
                 break;
             case 'list-equipments':
                 $this->render = new EquipmentsRender($this->em);
+                $this->render->prepareScreen();
+                break;
+            case 'list-persons':
+                $this->render = new PersonsRender($this->em);
                 $this->render->prepareScreen();
                 break;
         }

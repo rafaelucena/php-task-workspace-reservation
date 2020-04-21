@@ -22,6 +22,9 @@ switch ($request) {
     case '/equipments' :
         $run->prepare('list-equipments');
         break;
+    case '/persons' :
+        $run->prepare('list-persons');
+        break;
     default:
         http_response_code(404);
         exit;

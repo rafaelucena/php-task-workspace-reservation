@@ -27,6 +27,7 @@ class PersonService extends BaseService
         $person->setName($decoded['name']);
         $person->setLastname($decoded['lastname']);
 
+
         $this->em->persist($person);
         $this->em->flush();
 
@@ -70,7 +71,13 @@ class PersonService extends BaseService
         $decoded = [];
 
         if ($type === 'save') {
-            preg_match('/^(\w+).+?(\w+)$/', $parameters, $match);
+            preg_match('/^(\w+)\s?,\s?(\w+)$/', $parameters, $match);
+            if (empty($match) === true) {
+                $decoded['name'] = $parameters;
+                $decoded['lastname'] = '';
+
+                return $decoded;
+            }
             $decoded['lastname'] = $match[1];
             $decoded['name'] = $match[2];
         } elseif ($type === 'update') {
@@ -91,6 +98,8 @@ class PersonService extends BaseService
             $mapped[] = [
                 'id' => $person->getId(),
                 'fullname' => $person->getLastname() . ', ' . $person->getName(),
+                'name' => $person->getName(),
+                'lastname' => $person->getLastname(),
                 'phone' => $person->getPhone(),
                 'email' => $person->getEmail(),
                 'description' => $person->getDescription(),
