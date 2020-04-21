@@ -81,7 +81,9 @@ $.each(personsData, function(personIndex, item) {
   // Fill the table
   $.each(workplacesData, function(workplaceIndex, item) {
     var $tr = $("<tr>").append(
-      $("<th scope='row'>").text(item.designation),
+      $("<th scope='row' class='update-workplace' contenteditable='true'>")
+        .attr("data", item.id + "-designation")
+        .text(item.designation),
       $("<td class='update-workplace' contenteditable='true'>")
         .attr("data", item.id + "-description")
         .text(item.description)
@@ -119,6 +121,7 @@ $.each(personsData, function(personIndex, item) {
       },
       success: function(){
         alert("New workplace set!");
+        location.reload();
       }
     });
   });

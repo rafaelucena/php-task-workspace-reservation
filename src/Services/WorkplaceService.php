@@ -46,6 +46,9 @@ class WorkplaceService extends BaseService
         }
 
         switch ($decoded['parameter']) {
+            case 'designation':
+                $workplace->setDesignation($request['value']);
+                break;
             case 'description':
                 $workplace->setDescription($request['value']);
                 break;
