@@ -17,7 +17,7 @@ class ScheduleService extends BaseService
      */
     public function save(array $request): array
     {
-        if (empty($request['parameters'])) {
+        if (empty($request['parameters']) || $this->hasHtml($request['value'] ?? '')) {
             return false;
         }
 

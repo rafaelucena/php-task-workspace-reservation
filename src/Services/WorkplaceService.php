@@ -9,7 +9,7 @@ class WorkplaceService extends BaseService
 {
     public function save(array $request)
     {
-        if (empty($request['parameters'])) {
+        if (empty($request['parameters']) || $this->hasHtml($request['value'] ?? '')) {
             return false;
         }
 
@@ -33,7 +33,7 @@ class WorkplaceService extends BaseService
 
     public function update(array $request)
     {
-        if (empty($request['parameters'])) {
+        if (empty($request['parameters']) || $this->hasHtml($request['value'] ?? '')) {
             return false;
         }
 

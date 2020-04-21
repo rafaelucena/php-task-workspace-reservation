@@ -9,7 +9,7 @@ class PersonService extends BaseService
 {
     public function save(array $request)
     {
-        if (empty($request['parameters'])) {
+        if (empty($request['parameters']) || $this->hasHtml($request['value'] ?? '')) {
             header('HTTP/1.0 404 Internal Server Error');
             die;
         }
@@ -37,7 +37,7 @@ class PersonService extends BaseService
 
     public function update(array $request)
     {
-        if (empty($request['parameters'])) {
+        if (empty($request['parameters']) || $this->hasHtml($request['value'] ?? '')) {
             header('HTTP/1.0 404 Internal Server Error');
             die;
         }
@@ -47,6 +47,11 @@ class PersonService extends BaseService
         $person = $this->em->getRepository(Person::class)->find($decoded['id']);
         if ($person === null) {
             header('HTTP/1.0 404 Internal Server Error');
+            die;
+        }
+
+        if ($this->hasHtml($request['value']) === true) {
+            header('HTTP/1.0 403 Internal Server Error');
             die;
         }
 

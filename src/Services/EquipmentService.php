@@ -10,7 +10,7 @@ class EquipmentService extends BaseService
 {
     public function save(array $request)
     {
-        if (empty($request['parameters'])) {
+        if (empty($request['parameters']) || $this->hasHtml($request['value'] ?? '')) {
             header('HTTP/1.0 404 Internal Server Error');
             die;
         }
@@ -36,8 +36,9 @@ class EquipmentService extends BaseService
 
     public function update(array $request)
     {
-        if (empty($request['parameters'])) {
-            return false;
+        if (empty($request['parameters']) || $this->hasHtml($request['value'] ?? '')) {
+            header('HTTP/1.0 404 Internal Server Error');
+            die;
         }
 
         $decoded = $this->decodeParameters($request['parameters']);

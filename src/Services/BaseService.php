@@ -10,4 +10,13 @@ class BaseService
     {
         $this->em = $entityManager;
     }
+
+    /**
+     * @param string $string
+     * @return boolean
+     */
+    protected function hasHtml(string $string): bool
+    {
+      return preg_match("/<[^<]+>/", $string, $match) !== 0;
+    }
 }
