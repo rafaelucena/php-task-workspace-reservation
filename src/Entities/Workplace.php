@@ -52,7 +52,7 @@ class Workplace
      */
     public function setDesignation(string $designation): void
     {
-        $this->designation = $designation;
+        $this->designation = strtolower($designation);
     }
 
     /**
@@ -60,7 +60,7 @@ class Workplace
      */
     public function getDesignation(): string
     {
-        return $this->designation;
+        return strtoupper($this->designation);
     }
 
     /**

@@ -14,7 +14,7 @@ class WorkplaceService extends BaseService
         }
 
         $workplace = $this->em->getRepository(Workplace::class)->findOneBy([
-            'designation' => $request['parameters'],
+            'designation' => strtolower($request['parameters']),
         ]);
 
         if ($workplace !== null) {

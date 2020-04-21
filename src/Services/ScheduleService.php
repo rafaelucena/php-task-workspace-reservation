@@ -23,7 +23,7 @@ class ScheduleService extends BaseService
 
         $decoded = $this->decodeParameters($request['parameters']);
         $person = $this->em->getRepository(Person::class)->findOneBy([
-            'name' => $request['value'],
+            'name' => strtolower($request['value']),
         ]);
 
         if ($person === null) {

@@ -15,7 +15,7 @@ class PersonService extends BaseService
 
         $decoded = $this->decodeParameters($request['parameters'], 'save');
         $person = $this->em->getRepository(Person::class)->findOneBy([
-            'name' => $decoded['name'],
+            'name' => strtolower($decoded['name']),
         ]);
 
         if ($person !== null) {

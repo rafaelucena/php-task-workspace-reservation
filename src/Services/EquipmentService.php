@@ -16,7 +16,7 @@ class EquipmentService extends BaseService
 
         /** @var Equipment */
         $equipment = $this->em->getRepository(Equipment::class)->findOneBy([
-            'designation' => $request['parameters'],
+            'designation' => strtolower($request['parameters']),
         ]);
 
         if ($equipment !== null) {
@@ -65,7 +65,7 @@ class EquipmentService extends BaseService
                     return;
                 }
                 $workplace = $this->em->getRepository(Workplace::class)->findOneBy([
-                    'designation' => $request['value'],
+                    'designation' => strtolower($request['value']),
                 ]);
                 if ($workplace === null) {
                     header('HTTP/1.0 404 Internal Server Error');
@@ -103,7 +103,7 @@ class EquipmentService extends BaseService
 
     public function getAll()
     {
-        $equipments = $this->em->getRepository(Equipment::class)->findBy([], []);
+        $equipments = $this->em->getRepository(Equipment::class)->findBy([], ['designation' => 'ASC']);
 
         $mapped = [];
         /** @var Equipment */

@@ -62,7 +62,7 @@ class Person
      */
     public function setName(string $name): void
     {
-        $this->name = $name;
+        $this->name = strtolower($name);
     }
 
     /**
@@ -70,7 +70,7 @@ class Person
      */
     public function getName(): string
     {
-        return $this->name;
+        return ucwords($this->name);
     }
 
     /**
@@ -79,7 +79,7 @@ class Person
      */
     public function setLastname(string $lastname): void
     {
-        $this->lastname = $lastname;
+        $this->lastname = strtolower($lastname);
     }
 
     /**
@@ -87,7 +87,7 @@ class Person
      */
     public function getLastname(): string
     {
-        return $this->lastname;
+        return ucwords($this->lastname);
     }
 
     /**
@@ -113,7 +113,7 @@ class Person
      */
     public function setEmail(string $email): void
     {
-        $this->email = $email;
+        $this->email = strtolower($email);
     }
 
     /**

@@ -62,7 +62,7 @@ class Equipment
      */
     public function setType(string $type): void
     {
-        $this->type = $type;
+        $this->type = strtolower($type);
     }
 
     /**
@@ -70,7 +70,7 @@ class Equipment
      */
     public function getType(): ?string
     {
-        return $this->type;
+        return ucfirst($this->type);
     }
 
     /**
@@ -79,7 +79,7 @@ class Equipment
      */
     public function setDesignation(string $designation): void
     {
-        $this->designation = $designation;
+        $this->designation = strtolower($designation);
     }
 
     /**
@@ -87,7 +87,7 @@ class Equipment
      */
     public function getDesignation(): string
     {
-        return $this->designation;
+        return ucwords($this->designation);
     }
 
     /**
