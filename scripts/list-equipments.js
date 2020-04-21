@@ -13,16 +13,21 @@
 // Fill the table
 $.each(equipmentsData, function(equipmentIndex, item) {
     var $tr = $("<tr>").append(
-      $("<th scope='row'>").text(item.designation),
+      $("<th scope='row' class='update-equipment' contenteditable='true'>")
+        .attr("data", item.id + "-designation")
+        .text(item.designation),
       $("<td class='update-equipment' contenteditable='true'>")
         .attr("data", item.id + "-type")
         .text(item.type),
       $("<td class='update-equipment' contenteditable='true'>")
+        .attr("data", item.id + "-model")
+        .text(item.model),
+      $("<td class='update-equipment' contenteditable='true'>")
         .attr("data", item.id + "-purchase-year")
         .text(item.purchaseYear),
-        $("<td class='update-equipment' contenteditable='true'>")
-          .attr("data", item.id + "-value")
-          .text(item.value),
+      $("<td class='update-equipment' contenteditable='true'>")
+        .attr("data", item.id + "-value")
+        .text(item.value),
       $("<td class='update-equipment' contenteditable='true'>")
         .attr("data", item.id + "-description")
         .text(item.description),
@@ -37,6 +42,7 @@ $.each(equipmentsData, function(equipmentIndex, item) {
     var $tr = $("<tr>").append(
       $("<td class='new-equipment' contenteditable='true'>")
         .text("Nokia 3220"),
+      $("<td>"),
       $("<td>"),
       $("<td>"),
       $("<td>"),

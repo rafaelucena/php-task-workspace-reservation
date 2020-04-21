@@ -70,12 +70,12 @@ class HomeRender
             $tableId = str_replace('-', '', $key);
             $table = '<table class="schedule-table table table-hover" id="schedule-table-' . $tableId . '">
               <thead class="thead-light">
-              <tr><th colspan="4" class="text-left">Schedule ' . $key . '</th></tr>
+              <tr><th colspan="4" class="text-left">Plan ' . $key . '</th></tr>
               <tr>
-                <th scope="col">Workplace</th>
-                <th scope="col">Equipment</th>
-                <th scope="col">During</th>
-                <th scope="col">Person</th>
+                <th scope="col">Miejsce pracy</th>
+                <th scope="col">Wyposażenie</th>
+                <th scope="col">Kiedy</th>
+                <th scope="col">Osoba</th>
               </tr>
               </thead><tbody></tbody></table>';
             $tableData .= $table;

@@ -2,10 +2,10 @@
 // Fill the table person
 $.each(personsData, function(personIndex, item) {
     var $tr = $("<tr>").append(
-      $("<td class='update-person' contenteditable='true'>")
+      $("<th scope='row' class='update-person' contenteditable='true'>")
         .attr("data", item.id + "-name")
         .text(item.name),
-      $("<td class='update-person' contenteditable='true'>")
+      $("<th scope='row' class='update-person' contenteditable='true'>")
         .attr("data", item.id + "-lastname")
         .text(item.lastname),
       $("<td class='update-person' contenteditable='true'>")
