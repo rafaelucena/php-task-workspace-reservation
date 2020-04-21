@@ -73,7 +73,6 @@ $.each(equipmentsData, function(equipmentIndex, item) {
       },
       success: function(){
         alert("New equipment set!");
-        location.reload();
       }
     });
   });

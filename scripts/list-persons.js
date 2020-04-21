@@ -78,7 +78,6 @@ $.each(personsData, function(personIndex, item) {
       },
       success: function(){
         alert("New person set!");
-        location.reload();
       }
     });
   });
